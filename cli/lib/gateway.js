@@ -25,7 +25,9 @@ Gateway.prototype.start = function start(options, cb) {
 
   if (cluster.isMaster) {
     edgeconfig.get({ source: source, keys: keys }, function (err, config) {
-      
+
+      initServices(config);
+
       if(options.port){
         config.edgemicro.port = parseInt(options.port);
       }
@@ -65,8 +67,6 @@ Gateway.prototype.start = function start(options, cb) {
           cluster.fork();
         }
 
-        gateway(config);
-
         cluster.on('death', function (worker) {
           console.log('worker ' + worker.pid + ' died');
         });
@@ -84,6 +84,23 @@ Gateway.prototype.start = function start(options, cb) {
     return;
   } else {
     startServer(that, args, cb);
+  }
+}
+
+function initServices(config) {
+
+  if (config.edgemicro.metrics) {
+    config.edgemicro.metrics.port = config.edgemicro.metrics.port || 8125;
+    const exec = require('child_process').exec;
+    console.log("*** Enabling metrics");
+    var child = exec(`docker run --rm --name telegraf -p ${config.edgemicro.metrics.port}:${config.edgemicro.metrics.port}/udp -v ~/.edgemicro/metrics.out:/var/tmp/edgemicro-metrics.out -v ~/.edgemicro/tele.conf:/etc/telegraf/telegraf.conf:ro telegraf`, (error, stdout, stderr) => {
+      if (error) {
+        console.error('*** Error starting telegraf. ', error);
+        return;
+      }
+    });
+    child.stdout.on('data', (data) => console.log(data.toString()));
+    child.stderr.on('data', (data) => console.error(data.toString()));
   }
 }
 
