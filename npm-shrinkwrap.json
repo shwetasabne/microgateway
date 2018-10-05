@@ -1,5 +1,35 @@
 {
   "name": "edgemicro",
   "version": "2.5.26",
-  "lockfileVersion": 1
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "asap": {
+      "version": "2.0.6",
+      "resolved": "http://artifactory.shuttercorp.net/artifactory/api/npm/npm-composite/asap/-/asap-2.0.6.tgz",
+      "integrity": "sha1-5QNHYR1+aQlDIIu9r+vLwvuGbUY="
+    },
+    "dnscache": {
+      "version": "1.0.1",
+      "resolved": "http://artifactory.shuttercorp.net/artifactory/api/npm/npm-composite/dnscache/-/dnscache-1.0.1.tgz",
+      "integrity": "sha1-Qssrm/tej736OVqsdOEn/AUHTTE=",
+      "requires": {
+        "asap": "2.0.6",
+        "lodash.clone": "4.3.2"
+      }
+    },
+    "lodash._baseclone": {
+      "version": "4.5.7",
+      "resolved": "http://artifactory.shuttercorp.net/artifactory/api/npm/npm-composite/lodash._baseclone/-/lodash._baseclone-4.5.7.tgz",
+      "integrity": "sha1-zkKt4IOE711i+nfDD2GkbmhvhDQ="
+    },
+    "lodash.clone": {
+      "version": "4.3.2",
+      "resolved": "http://artifactory.shuttercorp.net/artifactory/api/npm/npm-composite/lodash.clone/-/lodash.clone-4.3.2.tgz",
+      "integrity": "sha1-5WsXa2gjp93jj38r9Y3n1ZcSAOk=",
+      "requires": {
+        "lodash._baseclone": "4.5.7"
+      }
+    }
+  }
 }

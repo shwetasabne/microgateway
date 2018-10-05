@@ -1,5 +1,6 @@
 'use strict';
 
+var dnscache = require('dnscache')({enable: true});
 var request = require('request');
 var url = require('url');
 var fs = require('fs');
